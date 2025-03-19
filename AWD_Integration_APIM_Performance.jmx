@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="AWD_Integration_APIM" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">300</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1800</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Once Only Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - Token" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="scope" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">https://mfcapim.onmicrosoft.com/8a429cf9-461d-43f1-ac87-3a0e41b9bc36/.default</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">scope</stringProp>
+                </elementProp>
+                <elementProp name="client_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">f9158eb6-1a31-4ed8-a162-d240eb9158cb</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">client_id</stringProp>
+                </elementProp>
+                <elementProp name="client_secret" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">l~J8Q~0dbnmMAe9Ymbk0ZHcZqaXUmIj6bi1HWaQw</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">client_secret</stringProp>
+                </elementProp>
+                <elementProp name="grant_type" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">client_credentials</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">grant_type</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">login.microsoftonline.com</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/6ff98788-cb12-407e-881b-576e80c66dc9/oauth2/v2.0/token</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="access_token" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">access_token</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.access_token</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              <stringProp name="Sample.scope">all</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Validation of Status Code as a 200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">8</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion - Validate access_token node is present or not" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1938933922">access_token</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion -Validate token_type is Bearer" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="101507520">token_type</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="false">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">${__setProperty(token, ${access_token})};</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - Create Instance" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;CreateInstancesRq&quot;: {&#xd;
+        &quot;externalId&quot;: &quot;STORELETTER&quot;,&#xd;
+        &quot;createTransaction&quot;: [&#xd;
+            {&#xd;
+                &quot;relationshipId&quot;: &quot;1&quot;,&#xd;
+                &quot;businessArea&quot;: &quot;ILC&quot;,&#xd;
+                &quot;type&quot;: &quot;LETNBINSRD&quot;,&#xd;
+                &quot;status&quot;: &quot;PENDPRINT&quot;,&#xd;
+                &quot;queue&quot;: &quot;PENDING&quot;,&#xd;
+                &quot;lobFields&quot;: {&#xd;
+                    &quot;lobField&quot;: [&#xd;
+                        {&#xd;
+                            &quot;name&quot;: &quot;PPNU&quot;,&#xd;
+                            &quot;value&quot;: &quot;AKS100001&quot;&#xd;
+                        },&#xd;
+                        {&#xd;
+                            &quot;name&quot;: &quot;APPN&quot;,&#xd;
+                            &quot;value&quot;: &quot;100001&quot;&#xd;
+                        },&#xd;
+                        {&#xd;
+                            &quot;name&quot;: &quot;CSID&quot;,&#xd;
+                            &quot;value&quot;: &quot;1000001&quot;&#xd;
+                        },&#xd;
+                        {&#xd;
+                            &quot;name&quot;: &quot;FNAM&quot;,&#xd;
+                            &quot;value&quot;: &quot;AKSTest&quot;&#xd;
+                        },&#xd;
+                        {&#xd;
+                            &quot;name&quot;: &quot;LNAM&quot;,&#xd;
+                            &quot;value&quot;: &quot;AWDRejectDecline&quot;&#xd;
+                        }&#xd;
+                    ]&#xd;
+                },&#xd;
+                &quot;comment&quot;: &quot;Test from Postman&quot;&#xd;
+            }&#xd;
+        ],&#xd;
+        &quot;createSource&quot;: [&#xd;
+            {&#xd;
+                &quot;relationshipId&quot;: &quot;2&quot;,&#xd;
+                &quot;businessArea&quot;: &quot;ILC&quot;,&#xd;
+                &quot;type&quot;: &quot;LETTER&quot;,&#xd;
+                &quot;lobFields&quot;: {&#xd;
+                    &quot;lobField&quot;: [&#xd;
+                        {&#xd;
+                            &quot;name&quot;: &quot;EXT&quot;,&#xd;
+                            &quot;value&quot;: &quot;DOCX&quot;&#xd;
+                        },&#xd;
+                        {&#xd;
+                            &quot;name&quot;: &quot;FLNM&quot;,&#xd;
+                            &quot;value&quot;: &quot;Test_StoreLetter_1&quot;&#xd;
+                        }&#xd;
+                    ]&#xd;
+                },&#xd;
+                &quot;attachment&quot;: {&#xd;
+                    &quot;binaryData&quot;: &quot;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&quot;&#xd;
+                }&#xd;
+            }&#xd;
+        ],&#xd;
+        &quot;relationships&quot;: {&#xd;
+            &quot;relationship&quot;: [&#xd;
+                {&#xd;
+                    &quot;parentRelationshipId&quot;: &quot;1&quot;,&#xd;
+                    &quot;childRelationshipId&quot;: &quot;2&quot;&#xd;
+                }&#xd;
+            ]&#xd;
+        }&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">api.cac.prod.apim.manulife.io</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ext/cdt/insurance/rtl/cac/awdintegration/uat/createInstances</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${access_token}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Validation of Status Code as a 200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - Update Instance" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;UpdateInstanceRq&quot;: {&#xd;
+        &quot;externalId&quot;: &quot;ECAContractAssembly&quot;,&#xd;
+        &quot;transaction&quot;: [&#xd;
+            {&#xd;
+                &quot;instanceId&quot;: &quot;2024-09-20-05.52.58.024220T01&quot;,&#xd;
+                &quot;status&quot;: &quot;ERROR&quot;,&#xd;
+                &quot;queue&quot;: &quot;PROCESS&quot;,&#xd;
+                &quot;assignTo&quot;: &quot; &quot;,&#xd;
+                &quot;addManualComment&quot;: &quot;Error 10008 : Error : The transaction was not processed. Policy_Number does not exist&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">api.cac.prod.apim.manulife.io</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ext/cdt/insurance/rtl/cac/awdintegration/uat/updateInstances</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${access_token}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Validation of Status Code as a 200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - Retrieve Instance" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;RetrieveInstancesRq&quot;: {&#xd;
+        &quot;externalId&quot;: &quot;ECAContractAssembly&quot;,&#xd;
+        &quot;instanceId&quot;: [&#xd;
+            &quot;2024-04-03-16.53.57.086740T01&quot;&#xd;
+        ]&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">api.cac.prod.apim.manulife.io</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ext/cdt/insurance/rtl/cac/awdintegration/uat/RetrieveInstances</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${access_token}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Validation of Status Code as a 200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - Lookup" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;LookupRq&quot;: {&#xd;
+        &quot;name&quot;: &quot;S6&quot;,&#xd;
+        &quot;resultSize&quot;: &quot;10&quot;,&#xd;
+        &quot;parameters&quot;: [           &#xd;
+            {&#xd;
+                &quot;name&quot;: &quot;BUSINESSAREA&quot;,&#xd;
+                &quot;value&quot;: &quot;ILC&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;name&quot;: &quot;type&quot;,&#xd;
+                &quot;value&quot;: &quot;EDELIVER&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">api.cac.prod.apim.manulife.io</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/ext/cdt/insurance/rtl/cac/awdintegration/uat/Lookup</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${access_token}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Validation of Status Code as a 200" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
